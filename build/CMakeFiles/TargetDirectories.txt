@@ -1,0 +1,3 @@
+/home/aponyatov/Desktop/http_server_jpeg/http_server_boost/build/CMakeFiles/rebuild_cache.dir
+/home/aponyatov/Desktop/http_server_jpeg/http_server_boost/build/CMakeFiles/edit_cache.dir
+/home/aponyatov/Desktop/http_server_jpeg/http_server_boost/build/CMakeFiles/http_server.dir
