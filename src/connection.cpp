@@ -33,12 +33,10 @@ void connection::do_read() {
                 std::tie(result, std::ignore) = request_parser_.parse(
                     request_, buffer_.data(), buffer_.data() + bytes_transferred);
 
-                //alpo
-                std::cout << "begin read\n";
-                std::cout << buffer_.data() << std::endl;
-
                 if (result == request_parser::good) {
                     request_handler_.handle_request(request_, reply_);
+                    //alpo
+                    std::cout << "buffer size " << buffer_.size() << std::endl;
                     do_write();
                 } else if (result == request_parser::bad) {
                     reply_ = reply::stock_reply(reply::bad_request);

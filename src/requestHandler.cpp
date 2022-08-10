@@ -3,6 +3,7 @@
 #include "requestHandler.hpp"
 #include <fstream>
 #include <sstream>
+#include <iostream>
 #include <string>
 #include "mimeTypes.hpp"
 #include "reply.hpp"
@@ -17,6 +18,15 @@ request_handler::request_handler(const std::string& doc_root) :
 
 void request_handler::handle_request(const request& req, reply& rep)
 {
+
+  //alpo
+  std::cout << "PARSE REQUEST" << std::endl;
+  std::cout << req.headers.size() << " size " << std::endl;
+  for(auto el : req.headers) {
+    std::cout << el.name << " name " << std::endl;
+    std::cout << el.value << " values " << std::endl; 
+  }
+  std::cout << "URI : " << req.uri << std::endl;
   // Decode url to path.
   std::string request_path;
   if (!url_decode(req.uri, request_path))
