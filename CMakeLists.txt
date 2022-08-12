@@ -24,10 +24,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/connection.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/connectionManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/mimeTypes.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/reply.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/requestHandler.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/requestParser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/server.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/custom_image.cpp
 
