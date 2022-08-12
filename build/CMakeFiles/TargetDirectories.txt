@@ -1,0 +1,3 @@
+/home/lcash/Desktop/http_server/http_server_boost/build/CMakeFiles/rebuild_cache.dir
+/home/lcash/Desktop/http_server/http_server_boost/build/CMakeFiles/edit_cache.dir
+/home/lcash/Desktop/http_server/http_server_boost/build/CMakeFiles/http_server.dir

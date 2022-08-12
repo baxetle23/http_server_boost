@@ -5,8 +5,32 @@
 #include "connectionManager.hpp"
 #include "requestHandler.hpp"
 
+
+#define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+
+#include "stb_image.hpp"
+#include "stb_image_write.hpp"
+
 namespace http {
 namespace server {
+
+typedef struct {
+    int last_pos;
+    void *context;
+} custom_stbi_mem_context;
+
+// custom write function
+static void custom_stbi_write_mem(void *context, void *data, int size) {
+   custom_stbi_mem_context *c = (custom_stbi_mem_context*)context; 
+   char *dst = (char *)c->context;
+   char *src = (char *)data;
+   int cur_pos = c->last_pos;
+   for (int i = 0; i < size; i++) {
+       dst[cur_pos++] = src[i];
+   }
+   c->last_pos = cur_pos;
+}
 
 connection::connection(boost::asio::ip::tcp::socket socket,
                         connection_manager& manager, request_handler& handler) :
@@ -39,7 +63,35 @@ void connection::do_read_body() {
             }
             if (GIGA_BUFER.size() == 1659050) {
               std::cout << "THIS IS WE MAST SEE END" << std::endl;
-              do_write_body();
+              
+              int width, height, channels;
+              unsigned char* img = stbi_load_from_memory(
+                  (const unsigned char*)GIGA_BUFER.data(), GIGA_BUFER.size(), &width, &height, &channels, 0);
+              unsigned char buffer[width * channels];
+              for(size_t i = 0; i < height / 2; ++i) {
+                memcpy(buffer, img + width * channels * i, width * channels);
+                memcpy(img + width * channels * i, img + (height - i - 1) * width * channels, width * channels);
+                memcpy(img + (height - i - 1) * width * channels, buffer, width * channels);
+              }
+
+              custom_stbi_mem_context context;
+              context.last_pos = 0;
+              context.context = (void *)GIGA_BUFER.data();
+              int result = stbi_write_jpg_to_func(custom_stbi_write_mem, &context, width, height, channels, img, 20);
+              std::cout << context.last_pos << std::endl;
+              // stbi_write_jpg("cat-copy_fromserver.jpg", width, height, channels, img, 100);
+
+
+              reply_.status = reply::ok;
+              reply_.content.append(GIGA_BUFER.data(), GIGA_BUFER.size());
+              reply_.headers.resize(2);
+              reply_.headers[0].name = "Content-Length";
+              reply_.headers[0].value = std::to_string(reply_.content.size());
+              reply_.headers[1].name = "Content-Type";
+              reply_.headers[1].value = "image/jpeg";
+              GIGA_BUFER.resize(0);
+
+              do_write();
             } else {
               do_read_body();
             }
@@ -85,27 +137,6 @@ void connection::do_read() {
     //             connection_manager_.stop(shared_from_this());
     //         }
     //     });
-}
-
-void connection::do_write_body() {
-  auto self(shared_from_this());
-  boost::asio::async_write(socket_, boost::asio::const_buffer(GIGA_BUFER.data(), GIGA_BUFER.size()),
-      [this, self](boost::system::error_code ec, std::size_t)
-      {
-        if (!ec)
-        {
-          // Initiate graceful connection closure.
-          boost::system::error_code ignored_ec;
-          socket_.shutdown(boost::asio::ip::tcp::socket::shutdown_both,
-            ignored_ec);
-        }
-
-        if (ec != boost::asio::error::operation_aborted)
-        {
-          connection_manager_.stop(shared_from_this());
-        }
-        GIGA_BUFER.resize(0);
-      });
 }
 
 void connection::do_write() {
