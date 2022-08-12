@@ -12,9 +12,6 @@
 #include "requestHandler.hpp"
 #include "custom_image.hpp"
 
-
-constexpr size_t SIZE_BUFFER_READ = 102400;
-
 namespace http {
 namespace server {
 

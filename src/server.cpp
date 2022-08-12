@@ -23,7 +23,7 @@ server::server(const std::string& address, const std::string& port) :
   // Open the acceptor with the option to reuse the address (i.e. SO_REUSEADDR).
   boost::asio::ip::tcp::resolver resolver(io_context_);
   boost::asio::ip::tcp::endpoint endpoint =
-    *resolver.resolve(address, port).begin();
+  *resolver.resolve(address, port).begin();
   acceptor_.open(endpoint.protocol());
   acceptor_.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
   acceptor_.bind(endpoint);
@@ -41,33 +41,29 @@ void server::run() {
 }
 
 void server::do_accept() {
-  acceptor_.async_accept(
-      [this](boost::system::error_code ec, boost::asio::ip::tcp::socket socket) {
-        // Check whether the server was stopped by a signal before this
-        // completion handler had a chance to run.
-        if (!acceptor_.is_open()) {
-          return;
-        }
+  acceptor_.async_accept( [this](boost::system::error_code ec, boost::asio::ip::tcp::socket socket) {
+    // Check whether the server was stopped by a signal before this
+    // completion handler had a chance to run.
+    if (!acceptor_.is_open()) {
+      return;
+    }
 
-        if (!ec) {
-            connection_manager_.start(std::make_shared<connection>(
-                std::move(socket), connection_manager_, request_handler_));
-        }
-
-        do_accept();
-      });
+    if (!ec) {
+        connection_manager_.start(std::make_shared<connection>(
+            std::move(socket), connection_manager_, request_handler_));
+    }
+    do_accept();
+  });
 }
 
 void server::do_await_stop() {
-    signals_.async_wait(
-      [this](boost::system::error_code /*ec*/, int /*signo*/)
-      {
-        // The server is stopped by cancelling all outstanding asynchronous
-        // operations. Once all operations have finished the io_context::run()
-        // call will exit.
-        acceptor_.close();
-        connection_manager_.stop_all();
-      });
+  signals_.async_wait([this](boost::system::error_code /*ec*/, int /*signo*/) {
+    // The server is stopped by cancelling all outstanding asynchronous
+    // operations. Once all operations have finished the io_context::run()
+    // call will exit.
+    acceptor_.close();
+    connection_manager_.stop_all();
+  });
 }
 
 } // namespace server

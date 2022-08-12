@@ -6,9 +6,6 @@
 #include "stb_image.hpp"
 #include "stb_image_write.hpp"
 
-
-
-
 namespace image {
 
 // custom write function for work image to memory
@@ -41,7 +38,6 @@ void myImage::flipImage() {
     context.last_pos = 0;
     context.context = (void *)imgBuffer.data();
     int result = stbi_write_jpg_to_func(custom_stbi_write_mem, &context, width, height, channels, img, 80); // check result
-    //work image 
 }
 
 }//namespace image
