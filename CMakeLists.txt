@@ -19,6 +19,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/requestHandler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/requestParser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/server.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/custom_image.cpp
+
 )
 
 add_executable(http_server ${SOURCES})

@@ -9,7 +9,9 @@
 #include "request.hpp"
 #include "requestHandler.hpp"
 #include "requestParser.hpp"
+#include "custom_image.hpp"
 
+constexpr size_t SIZE_BUFFER_READ = 102400;
 
 namespace http {
 namespace server {
@@ -42,11 +44,13 @@ private:
 
     request_handler& request_handler_;
 
-    std::array<char, 8192> buffer_;
+    boost::asio::streambuf streamBuffer;
 
     request request_;
 
     request_parser request_parser_;
+
+    image::myImage image_;
 
     reply reply_;
 };
