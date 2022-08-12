@@ -40,7 +40,7 @@ void myImage::flipImage() {
     image::custom_stbi_mem_context context;
     context.last_pos = 0;
     context.context = (void *)imgBuffer.data();
-    int result = stbi_write_jpg_to_func(custom_stbi_write_mem, &context, width, height, channels, img, 80);
+    int result = stbi_write_jpg_to_func(custom_stbi_write_mem, &context, width, height, channels, img, 80); // check result
     //work image 
 }
 
