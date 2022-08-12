@@ -17,7 +17,7 @@ Clone the repository to your computer
 Create the build folder and go into it, there we will build the project
 > cd http_server/ && mkdir build && cd build
 
-run the project build script using make and make
+run the project build script using cmake and make
 > cmake .. && make
 
 start server, the first argument is the ip address, the second port
