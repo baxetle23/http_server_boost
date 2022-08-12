@@ -2,6 +2,8 @@
 
 #include <boost/asio.hpp>
 #include <string>
+#include <signal.h>
+#include <utility>
 
 #include "connection.hpp"
 #include "connectionManager.hpp"

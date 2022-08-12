@@ -5,9 +5,9 @@
 
 #include "stb_image.hpp"
 #include "stb_image_write.hpp"
-#include <cstring>
 
-#include <iostream>
+
+
 
 namespace image {
 

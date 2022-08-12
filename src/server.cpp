@@ -1,7 +1,5 @@
 
 #include "server.hpp"
-#include <signal.h>
-#include <utility>
 
 namespace http {
 namespace server {

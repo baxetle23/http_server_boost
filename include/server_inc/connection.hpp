@@ -4,11 +4,14 @@
 #include <array>
 #include <memory>
 #include <iostream>
+#include <utility>
+#include <vector>
 
 #include "reply.hpp"
 #include "request.hpp"
 #include "requestHandler.hpp"
 #include "custom_image.hpp"
+
 
 constexpr size_t SIZE_BUFFER_READ = 102400;
 

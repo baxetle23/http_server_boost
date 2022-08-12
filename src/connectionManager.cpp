@@ -1,5 +1,3 @@
-
-
 #include "connectionManager.hpp"
 
 namespace http {

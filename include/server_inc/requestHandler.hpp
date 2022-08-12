@@ -1,8 +1,9 @@
-
-#ifndef HTTP_REQUEST_HANDLER_HPP
-#define HTTP_REQUEST_HANDLER_HPP
+#pragma once
 
 #include <string>
+
+#include "reply.hpp"
+#include "request.hpp"
 
 namespace http {
 namespace server {
@@ -31,5 +32,3 @@ private:
 
 } // namespace server
 } // namespace http
-
-#endif // HTTP_REQUEST_HANDLER_HPP

@@ -1,7 +1,6 @@
 
 
-#ifndef HTTP_REPLY_HPP
-#define HTTP_REPLY_HPP
+#pragma once
 
 #include <string>
 #include <vector>
@@ -52,5 +51,3 @@ struct reply
 
 } // namespace server
 } // namespace http
-
-#endif // HTTP_REPLY_HPP
