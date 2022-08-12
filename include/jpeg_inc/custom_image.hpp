@@ -10,7 +10,7 @@ struct custom_stbi_mem_context{
 };
 
 // custom write function for work image to memory
-static void custom_stbi_write_mem(void *context, void *data, int size);
+void custom_stbi_write_mem(void *context, void *data, int size);
 
 struct myImage {
     int size_image; // maybe overflow :)

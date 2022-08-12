@@ -27,7 +27,7 @@ void connection::stop() {
 void connection::do_read_body() {
     auto self(shared_from_this());
     async_read(socket_, boost::asio::buffer(image_.imgBuffer.data(), image_.size_image),
-                            [&](boost::system::error_code ec, size_t length) {
+                            [&](boost::system::error_code ec, size_t) {
         if (!ec) {
               ///work with image
               image_.flipImage();
@@ -50,16 +50,20 @@ void connection::do_read() {
   auto self(shared_from_this());
   boost::asio::async_read_until(socket_, streamBuffer, "\r\n\r\n",
     [&](boost::system::error_code ec, size_t bytes_transferred){
-      std::istream is(&streamBuffer);
-      std::vector<char> buffer_header(bytes_transferred);
-      std::string line;
-      while(std::getline(is, line)) {
-        if (!line.find("Content-Length: ")) {
-          image_.size_image = atoi(line.data() + 16);
-          image_.imgBuffer.resize(image_.size_image);
+      if (!ec) {
+        std::istream is(&streamBuffer);
+        std::vector<char> buffer_header(bytes_transferred);
+        std::string line;
+        while(std::getline(is, line)) {
+          if (!line.find("Content-Length: ")) {
+            image_.size_image = atoi(line.data() + 16);
+            image_.imgBuffer.resize(image_.size_image);
+          }
         }
+        do_read_body();
+      } else {
+        connection_manager_.stop(shared_from_this());
       }
-      do_read_body();
     });
 }
 

@@ -12,7 +12,7 @@
 namespace image {
 
 // custom write function for work image to memory
-static void custom_stbi_write_mem(void *context, void *data, int size) {
+void custom_stbi_write_mem(void *context, void *data, int size) {
    custom_stbi_mem_context *c = (custom_stbi_mem_context*)context; 
    char *dst = (char *)c->context;
    char *src = (char *)data;
@@ -31,7 +31,7 @@ void myImage::flipImage() {
     unsigned char* img = stbi_load_from_memory(
         (const unsigned char*)imgBuffer.data(), imgBuffer.size(), &width, &height, &channels, 0);
     unsigned char buffer[width * channels];
-    for(size_t i = 0; i < height / 2; ++i) {
+    for(int i = 0; i < height / 2; ++i) {
         std::memcpy(buffer, img + width * channels * i, width * channels);
         std::memcpy(img + width * channels * i, img + (height - i - 1) * width * channels, width * channels);
         std::memcpy(img + (height - i - 1) * width * channels, buffer, width * channels);
