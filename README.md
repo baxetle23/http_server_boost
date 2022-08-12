@@ -17,4 +17,4 @@ Example of checking a service running on port 5875 use the curl utility:
 
 > cmake .. && make
 
-> ./http_server <IP> <PORT>
+> ./http_server IP PORT
