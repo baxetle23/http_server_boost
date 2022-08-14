@@ -12,8 +12,7 @@ struct reply;
 struct request;
 
 /// The common handler for all incoming requests.
-class request_handler
-{
+class request_handler {
 public:
   request_handler(const request_handler&) = delete;
   request_handler& operator=(const request_handler&) = delete;

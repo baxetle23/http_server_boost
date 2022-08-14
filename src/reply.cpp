@@ -8,41 +8,40 @@ namespace server {
 
 namespace status_strings {
 
-const std::string ok =
+constexpr std::string ok =
   "HTTP/1.0 200 OK\r\n";
-const std::string created =
+constexpr std::string created =
   "HTTP/1.0 201 Created\r\n";
-const std::string accepted =
+constexpr std::string accepted =
   "HTTP/1.0 202 Accepted\r\n";
-const std::string no_content =
+constexpr std::string no_content =
   "HTTP/1.0 204 No Content\r\n";
-const std::string multiple_choices =
+constexpr std::string multiple_choices =
   "HTTP/1.0 300 Multiple Choices\r\n";
-const std::string moved_permanently =
+constexpr std::string moved_permanently =
   "HTTP/1.0 301 Moved Permanently\r\n";
-const std::string moved_temporarily =
+constexpr std::string moved_temporarily =
   "HTTP/1.0 302 Moved Temporarily\r\n";
-const std::string not_modified =
+constexpr std::string not_modified =
   "HTTP/1.0 304 Not Modified\r\n";
-const std::string bad_request =
+constexpr std::string bad_request =
   "HTTP/1.0 400 Bad Request\r\n";
-const std::string unauthorized =
+constexpr std::string unauthorized =
   "HTTP/1.0 401 Unauthorized\r\n";
-const std::string forbidden =
+constexpr std::string forbidden =
   "HTTP/1.0 403 Forbidden\r\n";
-const std::string not_found =
+constexpr std::string not_found =
   "HTTP/1.0 404 Not Found\r\n";
-const std::string internal_server_error =
+constexpr std::string internal_server_error =
   "HTTP/1.0 500 Internal Server Error\r\n";
-const std::string not_implemented =
+constexpr std::string not_implemented =
   "HTTP/1.0 501 Not Implemented\r\n";
-const std::string bad_gateway =
+constexpr std::string bad_gateway =
   "HTTP/1.0 502 Bad Gateway\r\n";
-const std::string service_unavailable =
+constexpr std::string service_unavailable =
   "HTTP/1.0 503 Service Unavailable\r\n";
 
-boost::asio::const_buffer to_buffer(reply::status_type status)
-{
+boost::asio::const_buffer to_buffer(reply::status_type status) {
   switch (status)
   {
   case reply::ok:
