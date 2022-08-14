@@ -8,6 +8,7 @@
 #include "connection.hpp"
 #include "connectionManager.hpp"
 #include "requestHandler.hpp"
+#include "basic_logger.hpp"
 
 namespace http {
 namespace server {

@@ -16,7 +16,7 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include/server_inc
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -std=c++14")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -std=c++17")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS}  -g")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS}  -O3")
 
@@ -28,6 +28,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/requestHandler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/server.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/custom_image.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/basic_logger.cpp
 
 )
 

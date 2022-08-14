@@ -8,38 +8,40 @@ namespace server {
 
 namespace status_strings {
 
-constexpr std::string ok =
-  "HTTP/1.0 200 OK\r\n";
-constexpr std::string created =
-  "HTTP/1.0 201 Created\r\n";
-constexpr std::string accepted =
-  "HTTP/1.0 202 Accepted\r\n";
-constexpr std::string no_content =
-  "HTTP/1.0 204 No Content\r\n";
-constexpr std::string multiple_choices =
-  "HTTP/1.0 300 Multiple Choices\r\n";
-constexpr std::string moved_permanently =
-  "HTTP/1.0 301 Moved Permanently\r\n";
-constexpr std::string moved_temporarily =
-  "HTTP/1.0 302 Moved Temporarily\r\n";
-constexpr std::string not_modified =
-  "HTTP/1.0 304 Not Modified\r\n";
-constexpr std::string bad_request =
-  "HTTP/1.0 400 Bad Request\r\n";
-constexpr std::string unauthorized =
-  "HTTP/1.0 401 Unauthorized\r\n";
-constexpr std::string forbidden =
-  "HTTP/1.0 403 Forbidden\r\n";
-constexpr std::string not_found =
-  "HTTP/1.0 404 Not Found\r\n";
-constexpr std::string internal_server_error =
-  "HTTP/1.0 500 Internal Server Error\r\n";
-constexpr std::string not_implemented =
-  "HTTP/1.0 501 Not Implemented\r\n";
-constexpr std::string bad_gateway =
-  "HTTP/1.0 502 Bad Gateway\r\n";
-constexpr std::string service_unavailable =
-  "HTTP/1.0 503 Service Unavailable\r\n";
+using namespace std::string_literals;
+
+const std::string ok =
+  "HTTP/1.0 200 OK\r\n"s;
+const std::string created =
+  "HTTP/1.0 201 Created\r\n"s;
+const std::string accepted =
+  "HTTP/1.0 202 Accepted\r\n"s;
+const std::string no_content =
+  "HTTP/1.0 204 No Content\r\n"s;
+const std::string multiple_choices =
+  "HTTP/1.0 300 Multiple Choices\r\n"s;
+const std::string moved_permanently =
+  "HTTP/1.0 301 Moved Permanently\r\n"s;
+const std::string moved_temporarily =
+  "HTTP/1.0 302 Moved Temporarily\r\n"s;
+const std::string not_modified =
+  "HTTP/1.0 304 Not Modified\r\n"s;
+const std::string bad_request =
+  "HTTP/1.0 400 Bad Request\r\n"s;
+const std::string unauthorized =
+  "HTTP/1.0 401 Unauthorized\r\n"s;
+const std::string forbidden =
+  "HTTP/1.0 403 Forbidden\r\n"s;
+const std::string not_found =
+  "HTTP/1.0 404 Not Found\r\n"s;
+const std::string internal_server_error =
+  "HTTP/1.0 500 Internal Server Error\r\n"s;
+const std::string not_implemented =
+  "HTTP/1.0 501 Not Implemented\r\n"s;
+const std::string bad_gateway =
+  "HTTP/1.0 502 Bad Gateway\r\n"s;
+const std::string service_unavailable =
+  "HTTP/1.0 503 Service Unavailable\r\n"s;
 
 boost::asio::const_buffer to_buffer(reply::status_type status) {
   switch (status)
@@ -90,12 +92,10 @@ const char crlf[] = { '\r', '\n' };
 
 } // namespace misc_strings
 
-std::vector<boost::asio::const_buffer> reply::to_buffers()
-{
+std::vector<boost::asio::const_buffer> reply::to_buffers() {
   std::vector<boost::asio::const_buffer> buffers;
   buffers.push_back(status_strings::to_buffer(status));
-  for (std::size_t i = 0; i < headers.size(); ++i)
-  {
+  for (std::size_t i = 0; i < headers.size(); ++i) {
     header& h = headers[i];
     buffers.push_back(boost::asio::buffer(h.name));
     buffers.push_back(boost::asio::buffer(misc_strings::name_value_separator));
@@ -186,10 +186,8 @@ const char service_unavailable[] =
   "<body><h1>503 Service Unavailable</h1></body>"
   "</html>";
 
-std::string to_string(reply::status_type status)
-{
-  switch (status)
-  {
+std::string to_string(reply::status_type status) {
+  switch (status) {
   case reply::ok:
     return ok;
   case reply::created:
@@ -229,8 +227,7 @@ std::string to_string(reply::status_type status)
 
 } // namespace stock_replies
 
-reply reply::stock_reply(reply::status_type status)
-{
+reply reply::stock_reply(reply::status_type status) {
   reply rep;
   rep.status = status;
   rep.content = stock_replies::to_string(status);
