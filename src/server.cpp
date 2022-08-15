@@ -29,8 +29,6 @@ server::server(const std::string& address, const std::string& port) :
   acceptor_.bind(endpoint);
   acceptor_.listen();
 
-  BasicLogger::setFilePath("/home/lcash/Desktop/http_server/http_server_boost/build/log_server.txt");
-  BasicLogger::setVerbosity(LogPriority::TraceP);
   BasicLogger::Log(LogPriority::InfoP, "server start on " + address + " "  + port);
 
   do_accept();

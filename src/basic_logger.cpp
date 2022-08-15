@@ -13,16 +13,28 @@ void BasicLogger::setVerbosity(LogPriority new_priority) {
 
 void BasicLogger::Log(LogPriority priority, const std::string& message) {
     if (priority >= verbosity) {
-        std::scoped_lock guard(mutex_logger);
         std::ofstream FILE(filepath, std::ios_base::app);
         switch (priority) {
-            case TraceP: FILE << "Trace:\t"; break;
-            case DebugP: FILE << "Debug:\t"; break;
-            case InfoP: FILE << "Info:\t"; break;
-            case WarnP: FILE << "Warn:\t"; break;
-            case ErrorP: FILE << "Error:\t"; break;
+            case TraceP: {
+                FILE << "[Trace] : "; 
+                break;
+            } case DebugP: {
+                FILE << "[Debug] : "; 
+                break;
+            } case InfoP: {
+                FILE << "[Info] : "; 
+                break;
+            } case WarnP: {
+                FILE << "[Warn] : "; 
+                break;
+            } case ErrorP: {
+                FILE << "[Error] : "; 
+                break;
+            } case FatalP: {
+                FILE << "[Fatal] : ";
+            }
         }
-        FILE << message << "\n";
+        FILE << message << std::endl;
         FILE.close();
     }
 }

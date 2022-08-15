@@ -19,9 +19,8 @@ enum LogPriority {
 
 class BasicLogger {
 private:
-    inline static LogPriority verbosity;
-    inline static std::string filepath;
-    inline static std::mutex  mutex_logger;
+    static inline LogPriority verbosity {LogPriority::TraceP};
+    static inline std::string filepath  {"log_server.txt"};
 
 public:
     static void setFilePath(const std::string& file_path);
@@ -33,6 +32,7 @@ public:
 } //namespace server
 } //namespace http
 
+//task:
 //add time message 
 //add multy templates parametrs
 //add root for log file from cmake ..
