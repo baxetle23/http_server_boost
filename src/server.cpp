@@ -23,7 +23,7 @@ server::server(const std::string& address, const std::string& port) :
   // Open the acceptor with the option to reuse the address (i.e. SO_REUSEADDR).
   boost::asio::ip::tcp::resolver resolver(io_context_);
   boost::asio::ip::tcp::endpoint endpoint = *resolver.resolve(address, port).begin();
-  
+
   acceptor_.open(endpoint.protocol());
   acceptor_.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
   acceptor_.bind(endpoint);
@@ -51,6 +51,7 @@ void server::do_accept() {
     }
 
     if (!ec) {
+        BasicLogger::Log(LogPriority::InfoP, "connection start");
         connection_manager_.start(std::make_shared<connection>(
             std::move(socket), connection_manager_, request_handler_));
     }

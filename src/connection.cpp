@@ -1,7 +1,7 @@
 #include "connection.hpp"
 #include "connectionManager.hpp"
 #include "requestHandler.hpp"
-
+#include "basic_logger.hpp"
 
 namespace http {
 namespace server {
@@ -84,6 +84,7 @@ void connection::do_write() {
     }
 
     if (ec != boost::asio::error::operation_aborted) {
+      BasicLogger::Log(LogPriority::InfoP, "connection stop");
       connection_manager_.stop(shared_from_this());
     }
   });
