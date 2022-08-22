@@ -29,7 +29,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/server.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/custom_image.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/basic_logger.cpp
-
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/parameters.cpp
 )
 
 add_executable(http_server ${SOURCES})
