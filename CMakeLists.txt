@@ -34,4 +34,8 @@ set(SOURCES
 
 add_executable(http_server ${SOURCES})
 
-target_link_libraries(http_server pthread)
+IF (WIN32)
+    target_link_libraries(http_server ws2_32 wsock32)
+ELSE()
+    target_link_libraries(http_server pthread)
+ENDIF()
